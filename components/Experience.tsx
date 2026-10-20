@@ -26,7 +26,7 @@ export default async function Experience() {
     <section id="experience">
       <div
         id="experience"
-        className="flex flex-col px-6 md:px-12 lg:px-20 pb-12 lg:pb-20 w-full bg-black lg:gap-0"
+        className="flex flex-col px-6 md:px-12 lg:px-20 pb-12 lg:pb-20 w-full bg-black lg:gap-0 pt-8"
       >
         <p className="text-2xl font-semibold uppercase mb-4">Experience</p>
 
@@ -54,7 +54,7 @@ export default async function Experience() {
                     {item.company_name}
                   </h3>
 
-                  <h4 className="text-md font-bold text-zinc-100 dark:text-zinc-300/75 mt-0.5">
+                  <h4 className="text-md font-bold text-zinc-100 dark:text-zinc-400/75 mt-0.5">
                     {item.role}
                   </h4>
 

@@ -12,7 +12,7 @@ export default async function Skills() {
 
   return (
     <section id="skills">
-      <div className="flex flex-col px-6 md:px-12 lg:px-20 py-12 lg:py-20 w-full bg-black rounded-t-3xl md:rounded-t-4xl lg:gap-0">
+      <div className="flex flex-col px-6 md:px-12 lg:px-20 py-16 lg:py-20 w-full bg-black rounded-t-3xl md:rounded-t-4xl lg:gap-0">
         <p className="text-2xl font-semibold uppercase mb-4">Skills & Tools</p>
 
         <ul className="flex flex-wrap gap-2">

@@ -1,9 +1,31 @@
+"use client";
+
 import Image from "next/image";
+import { useLenis } from "lenis/react";
+import { WordRotate } from "./ui/word-rotate";
+import { MdOutlineArrowOutward } from "react-icons/md";
 
 export default function Hero() {
+  const lenis = useLenis();
+
+  const handleScrollToProjects = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+
+    if (lenis) {
+      lenis.scrollTo("#projects", {
+        offset: -40,
+        duration: 1.2,
+      });
+    } else {
+      document
+        .querySelector("#projects")
+        ?.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
   return (
     <section id="hero">
-      <div className="flex flex-col lg:flex-row justify-center lg:justify-between items-center px-6 md:px-12 lg:px-20 min-h-screen py-12 lg:py-0 w-full bg-white rounded-b-3xl md:rounded-b-4xl gap-10 lg:gap-0">
+      <div className="flex flex-col lg:flex-row justify-center lg:justify-between items-center px-6 md:px-12 lg:px-32 min-h-screen py-12 lg:py-0 w-full bg-white rounded-b-3xl md:rounded-b-4xl gap-10 lg:gap-0">
         <div className="w-full lg:max-w-xl text-center lg:text-left flex flex-col items-center lg:items-start order-2 lg:order-1">
           <h1 className="text-4xl sm:text-5xl lg:text-6xl text-black font-bold tracking-[-0.08em] mb-4 sm:mb-5">
             Daifan Nur Amali
@@ -24,10 +46,11 @@ export default function Hero() {
 
           <div>
             <a
-              href="#work"
-              className="text-black text-sm sm:text-md font-bold underline hover:opacity-80 transition-opacity inline-block"
+              href="#projects"
+              onClick={handleScrollToProjects}
+              className="text-black text-sm font-bold underline hover:opacity-80 transition-opacity inline-block cursor-pointer"
             >
-              See my work
+              See my work <MdOutlineArrowOutward className="inline-block ml-2" />
             </a>
           </div>
         </div>
@@ -38,13 +61,16 @@ export default function Hero() {
               src="/img/profile.png"
               alt="Profile"
               fill
-              className="object-cover "
+              className="object-cover"
               priority
             />
           </div>
 
-          <div className="absolute top-4 -left-16 backdrop-blur-sm bg-zinc-900/65 border border-zinc-500 text-zinc-100 font-bold px-3 py-1 sm:px-4 sm:py-1.5 rounded-full shadow-lg">
-            <p className="text-xs sm:text-sm lg:text-base">UI/UX Designer</p>
+          <div className="justify-items-center absolute top-4 -left-16 backdrop-blur-sm bg-zinc-900/65 border border-zinc-500 text-zinc-100 font-bold px-2 py-0 lg:px-4 rounded-full shadow-lg w-30 lg:w-40">
+            <WordRotate
+              className="text-xs sm:text-sm lg:text-base"
+              words={["UIUX Designer", "Frontend Dev"]}
+            />
           </div>
         </div>
       </div>

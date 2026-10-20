@@ -1,7 +1,6 @@
-// components/Projects.tsx
 import { supabase } from "@/lib/supabase";
-import { ExpandableCard } from "./ui/expandable-card"; // Sesuaikan path ini jika Anda meletakkannya di folder /ui
-import { FaGithub, FaExternalLinkAlt } from "react-icons/fa"; // Pastikan install react-icons
+import { ExpandableCard } from "./ui/expandable-card";
+import { FaGithub, FaExternalLinkAlt, FaArrowRight } from "react-icons/fa";
 
 interface ProjectItem {
   id: string;
@@ -15,11 +14,11 @@ interface ProjectItem {
 }
 
 export default async function Projects() {
-  // Fetch data dari Supabase
-  const { data, error } = await supabase
+   const { data, error, count } = await supabase
     .from("projects")
-    .select("*")
-    .order("created_at", { ascending: false });
+    .select("*", { count: "exact" })
+    .order("created_at", { ascending: false })
+    .limit(4);
 
   if (error) {
     console.error("Error fetching projects:", error);
@@ -27,15 +26,14 @@ export default async function Projects() {
 
   const projects: ProjectItem[] = data || [];
 
-  // Gambar default jika image_url di database kosong
   const fallbackImage = "https://placehold.co/600x400/18181b/ffffff?text=No+Image";
 
   return (
     <section id="projects">
-      <div className="flex flex-col px-6 md:px-12 lg:px-20 pb-12 lg:pb-20 w-full bg-black lg:gap-0">
+      <div className="flex flex-col px-6 md:px-12 lg:px-20 pb-4 lg:pb-2 w-full bg-black lg:gap-0 pt-8">
         <p className="text-2xl font-semibold uppercase mb-8 text-white">Projects</p>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 w-full">
+        <div className="mx-auto grid w-fit max-w-5xl grid-cols-1 justify-items-center gap-6 lg:grid-cols-2">
           {projects?.map((project) => (
             <ExpandableCard
               key={project.id}
@@ -55,18 +53,15 @@ export default async function Projects() {
                       {project.tech_stack.map((tech: string, index: number) => (
                         <span
                           key={index}
-                          className="inline-flex rounded-full bg-linear-to-tr from-[#252525] via-[#18181b] to-[#353535] p-px"
+                          className="bg-zinc-900 border border-zinc-700 text-zinc-300 px-4 py-1 rounded-full text-sm font-bold"
                         >
-                          <div className="rounded-full bg-white px-3 py-1 text-xs font-semibold text-zinc-700 dark:bg-zinc-900 dark:text-zinc-300">
                             {tech}
-                          </div>
                         </span>
                       ))}
                     </div>
                   </div>
                 )}
 
-                {/* Tombol Link (Demo & Repo) */}
                 <div className="flex items-center gap-4 pt-4 border-t border-zinc-200 dark:border-zinc-800">
                   {project.live_url && (
                     <a
@@ -97,6 +92,15 @@ export default async function Projects() {
             </ExpandableCard>
           ))}
         </div>
+
+        {(count ?? 0) > 4 && (
+          <a
+            href="/projects"
+            className=" flex items-center mt-2 self-center rounded-full px-6 py-3 text-md font-semibold text-zinc-400 hover:underline hover:text-white"
+          >
+            More Project
+          </a>
+        )}
       </div>
     </section>
   );

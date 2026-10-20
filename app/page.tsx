@@ -5,6 +5,7 @@ import Experience from "@/components/Experience";
 import Hero from "@/components/Hero";
 import Skills from "@/components/Skills";
 import Projects from "@/components/Projects";
+import Cta from "@/components/Cta";
 
 export const revalidate = 3600; 
 
@@ -16,6 +17,7 @@ export default function Home() {
       <Skills />
       <Experience />
       <Projects />
+      <Cta />
     </main>
   );
 }
